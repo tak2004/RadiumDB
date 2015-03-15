@@ -5,10 +5,12 @@
 
 namespace RadiumDB { namespace DCL {
 
+class Document;
+
 class DocumentReader
 {
 public:
-    virtual RF_Type::Bool ReadFrom(const RF_IO::Uri& Location, Document& IntoDocument) {}
+    virtual RF_Type::Bool ReadFrom(const RF_IO::Uri& Location, Document& IntoDocument) { return false; }
 };
 
 } }

@@ -5,9 +5,10 @@
 #include <RadiumDB/DCL/DocumentLocator.hpp>
 #include <RadiumDB/DCL/DocumentReader.hpp>
 #include <RadiumDB/DCL/DocumentWriter.hpp>
-#include <RadiumDB/DCL/Document.hpp>
 
 namespace RadiumDB { namespace DCL {
+
+class Document;
 
 class DataControlLanguage
 {

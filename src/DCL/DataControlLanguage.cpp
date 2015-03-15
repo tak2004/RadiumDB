@@ -1,4 +1,5 @@
 #include "RadiumDB/DCL/DataControlLanguage.hpp"
+#include "RadiumDB/DCL/Document.hpp"
 
 namespace RadiumDB { namespace DCL {
 
@@ -33,7 +34,17 @@ RF_Type::Bool DataControlLanguage::Delete(const RF_Util::UUID& Identifier)
 
 RF_Type::Bool DataControlLanguage::Update(const Document& ReplaceBy)
 {
+    return false;
+}
 
+void DataControlLanguage::SetDocumentWriter(RF_Mem::AutoPointer<DocumentWriter>& NewDocumentWriter)
+{
+    m_Writer = NewDocumentWriter;
+}
+
+void DataControlLanguage::SetDocumentReader(RF_Mem::AutoPointer<DocumentReader>& NewDocumentReader)
+{
+    m_Reader = NewDocumentReader;
 }
 
 } }
