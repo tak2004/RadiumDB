@@ -3,6 +3,18 @@ project(RadiumDB)
 
 include("Integrate.cmake")
 
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${RadiumDB_SOURCE_DIR}/dist)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${RadiumDB_SOURCE_DIR}/dist)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${RadiumDB_SOURCE_DIR}/dist)
+
+rcf_addlocation(RADONFRAMEWORK "git" "https://github.com/tak2004/RadonFramework.git")
+set(RADONFRAMEWORK_BUILD_UNITTEST OFF CACHE BOOL "" FORCE)
+set(RADONFRAMEWORK_BUILD_SYSTEMTEST OFF CACHE BOOL "" FORCE)
+set(RADONFRAMEWORK_BUILD_RESOURCETEST OFF CACHE BOOL "" FORCE)
+Integrate(RADONFRAMEWORK "Radon framework" "RADONFRAMEWORK_HOME")
+
+OPTION(RADIUMDB_BUILD_RESOURCETEST "Enable the resource test" OFF)
+
 AddSourceDirectoryRecursive(sharedenginesrclist "src" "Source")
 AddHeaderDirectoryRecursive(sharedenginehdrlist "include/RadiumDB" "Includes")
 set(RADIUMDB_FILES ${sharedenginesrclist} ${sharedenginehdrlist})
@@ -14,10 +26,14 @@ if (RADIUMDB_ADD_JSON_DOCUMENTS)
 	set(RADIUMDB_FILES ${RADIUMDB_FILES} ${sharedenginesrclist} ${sharedenginehdrlist})
 endif()
 
-Generate(MODULE RADIUMDB RadiumDB "Framework")
+Generate(MODULE RADIUMDB RadiumDB "RadiumDB")
 if (RADIUMDB_ADD_JSON_DOCUMENTS)
 	AddPublicInclude(RADIUMDB "${RadiumDB_SOURCE_DIR}/modules")	
 endif()
 AddPublicInclude(RADIUMDB "${RadiumDB_SOURCE_DIR}/include")
 AddDependency(RADIUMDB RadonFramework)
 Finalize(RADIUMDB)
+
+if(RADIUMDB_BUILD_RESOURCETEST)
+	add_subdirectory(tests/ResourceTest)
+endif()
