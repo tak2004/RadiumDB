@@ -48,7 +48,7 @@ int main(int argc, const char **argv)
     BriefProgressCollector progress;
     RF_Pattern::Singleton<UnitTest>::GetInstance().AddCollector(results);
     RF_Pattern::Singleton<UnitTest>::GetInstance().AddCollector(progress);
-    RF_Pattern::Singleton<UnitTest>::GetInstance().SetSequentialTestExecution(10);
+    //RF_Pattern::Singleton<UnitTest>::GetInstance().SetSequentialTestExecution(10);
 
     AutoPointerArray<OptionRule> rules(new OptionRule[ApplicationOptions::MAX], ApplicationOptions::MAX);
     rules[ApplicationOptions::ApplicationDirectory].Init(0, 0, StandardRuleChecker::Text, 0, OptionRule::Required);

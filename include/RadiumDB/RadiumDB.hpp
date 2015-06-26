@@ -7,6 +7,9 @@
 #include <RadiumDB/DDL/DataDefinitionLanguage.hpp>
 #include <RadiumDB/DML/DataModificationLanguage.hpp>
 
+#include <RadiumDB/DDL/BasicTypes.hpp>
+#include <RadiumDB/DCL/Document.hpp>
+
 namespace RadiumDB {
 
 class RadiumDB: public DCL::DataControlLanguage, 

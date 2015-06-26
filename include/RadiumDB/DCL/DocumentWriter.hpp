@@ -5,10 +5,13 @@
 
 namespace RadiumDB { namespace DCL {
 
+class Document;
+
 class DocumentWriter
 {
 public:
     virtual RF_Type::Bool CreateEmpty(RF_IO::Uri& Location) { return false; }
+    virtual RF_Type::Bool Create(RF_IO::Uri& Location, Document& Document) { return false; }
 };
 
 } }

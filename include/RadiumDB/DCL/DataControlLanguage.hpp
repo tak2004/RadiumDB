@@ -14,6 +14,7 @@ class DataControlLanguage
 {
 public:
     RF_Util::UUID CreateDocument();
+    void CreateDocument(Document& Document);
 
     RF_Type::Bool Get(const RF_Util::UUID& Identifier, Document& CopyTo);
 

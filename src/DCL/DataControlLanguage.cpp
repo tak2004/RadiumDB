@@ -17,6 +17,18 @@ RF_Util::UUID DataControlLanguage::CreateDocument()
     return newID;
 }
 
+void DataControlLanguage::CreateDocument(Document& Document)
+{
+    RF_Util::UUID newID;
+    RF_IO::Uri location;
+    do
+    {
+        newID = RF_Util::UUID::SecureRandomUUID();
+        location = m_Locator->Translate(newID);
+
+    } while(m_Writer->Create(location, Document) == false);
+}
+
 RF_Type::Bool DataControlLanguage::Get(const RF_Util::UUID& Identifier,
                                        Document& CopyTo)
 {
