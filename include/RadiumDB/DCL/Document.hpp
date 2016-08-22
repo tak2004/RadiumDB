@@ -32,7 +32,7 @@ RF_Type::Bool Document::SetStr(const RF_Type::String& Path)
 
 RF_Type::String Document::GetStr(const RF_Type::String& Path)
 {
-    return "";
+    return ""_rfs;
 }
 
 }

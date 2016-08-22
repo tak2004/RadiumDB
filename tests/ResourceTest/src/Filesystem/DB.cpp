@@ -7,18 +7,18 @@ class DBTest:public RF_Test::TestSuite
 {
 public:
     DBTest()
-    :TestSuite("RadiumDB::DBTest")
+    :TestSuite("RadiumDB::DBTest"_rfs)
     {
-        AddTest(MakeDelegate(this, &DBTest::Write), "DBTest::Write", "write json file");
+        AddTest(MakeDelegate(this, &DBTest::Write), "DBTest::Write"_rfs, "write json file"_rfs);
     }
 
     RF_Type::Bool Write()
     {
         RF_Mem::AutoPointer<RadiumDB::DDL::Template> asset(new RadiumDB::DDL::Template);
-        asset->Name("Asset");
-        asset->RegisterMember("tags", "List", "String");
-        asset->RegisterMember("sources", "List", "String");
-        asset->RegisterMember("location", "String");
+        asset->Name("Asset"_rfs);
+        asset->RegisterMember("tags"_rfs, "List"_rfs, "String"_rfs);
+        asset->RegisterMember("sources"_rfs, "List"_rfs, "String"_rfs);
+        asset->RegisterMember("location"_rfs, "String"_rfs);
         DBMS.RegisterType(static_cast<RF_Mem::AutoPointer<RadiumDB::DDL::Type>>(asset));
 
         RF_Mem::AutoPointer<RadiumDB::DCL::DocumentWriter> JSONWriter(new RadiumDB::JSONDocumentWriter);
