@@ -24,4 +24,17 @@ private:
 
 } }
 
+RF_Type::Bool Document::SetStr(const RF_Type::String& Path)
+{
+    return false;
+}
+
+RF_Type::String Document::GetStr(const RF_Type::String& Path)
+{
+    return ""_rfs;
+}
+
+}
+}
+
 #endif // RDB_DCL_DOCUMENT_HPP
