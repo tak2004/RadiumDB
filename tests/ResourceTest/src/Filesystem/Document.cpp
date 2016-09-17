@@ -6,7 +6,7 @@ class DocumentTest:public RF_Test::TestSuite
 {
 public:
     DocumentTest()
-    :TestSuite("RadiumDB::DocumentTest")
+    :TestSuite("RadiumDB::DocumentTest"_rfs)
     {
     }
 };

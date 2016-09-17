@@ -1,5 +1,5 @@
-#ifndef RDB_JSONDOCUMENTWRITER_HPP
-#define RDB_JSONDOCUMENTWRITER_HPP
+#ifndef RDB_MEMORYDOCUMENTWRITER_HPP
+#define RDB_MEMORYDOCUMENTWRITER_HPP
 #if _MSC_VER > 1000
 #pragma once
 #endif
@@ -8,7 +8,7 @@
 
 namespace RadiumDB {
 
-class JSONDocumentWriter : public DCL::DocumentWriter
+class MemoryDocumentWriter : public DCL::DocumentWriter
 {
 public:
     virtual RF_Type::Bool CreateEmpty(RF_IO::Uri& Location);
@@ -16,4 +16,4 @@ public:
 
 }
 
-#endif // RDB_JSONDOCUMENTWRITER_HPP
+#endif // RDB_MEMORYDOCUMENTWRITER_HPP

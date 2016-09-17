@@ -2,38 +2,46 @@
 #include <RadonFramework/Diagnostics/Debugging/UnitTest/TestSuite.hpp>
 #include <RadonFramework/Diagnostics/Debugging/UnitTest/UnitTest.hpp>
 #include <RadiumDB/RadiumDB.hpp>
+#include <BinaryDocument/BinaryDocumentReader.hpp>
+#include <BinaryDocument/BinaryDocumentWriter.hpp>
 
 class DBTest:public RF_Test::TestSuite
 {
 public:
     DBTest()
-    :TestSuite("RadiumDB::DBTest")
+    :TestSuite("RadiumDB::DBTest"_rfs)
     {
-        AddTest(MakeDelegate(this, &DBTest::Write), "DBTest::Write", "write json file");
+        AddTest(MakeDelegate(this, &DBTest::Write), "DBTest::Write"_rfs, "write json file"_rfs);
     }
 
     RF_Type::Bool Write()
     {
+        RadiumDB::RadiumDB db;
         RF_Mem::AutoPointer<RadiumDB::DDL::Template> asset(new RadiumDB::DDL::Template);
-        asset->Name("Asset");
-        asset->RegisterMember("tags", "List", "String");
-        asset->RegisterMember("sources", "List", "String");
-        asset->RegisterMember("location", "String");
-        DBMS.RegisterType(static_cast<RF_Mem::AutoPointer<RadiumDB::DDL::Type>>(asset));
+        asset->Name("Asset"_rfs);
+        asset->RegisterMember("tags"_rfs, "List"_rfs, "String"_rfs);
+        asset->RegisterMember("sources"_rfs, "List"_rfs, "String"_rfs);
+        asset->RegisterMember("location"_rfs, "String"_rfs);
+        db.RegisterType(static_cast<RF_Mem::AutoPointer<RadiumDB::DDL::Type>>(asset));
 
-        RF_Mem::AutoPointer<RadiumDB::DCL::DocumentWriter> JSONWriter(new RadiumDB::JSONDocumentWriter);
-        RF_Mem::AutoPointer<RadiumDB::DCL::DocumentReader> JSONReader(new RadiumDB::JSONDocumentReader);
+        RF_Mem::AutoPointer<RadiumDB::DCL::DocumentReader> reader(new RadiumDB::BinaryDocumentReader);
+        RF_Mem::AutoPointer<RadiumDB::DCL::DocumentWriter> writer(new RadiumDB::BinaryDocumentWriter);
+        db.SetDocumentReader(reader);
+        db.SetDocumentWriter(writer);
 
-        DBMS.SetDocumentWriter(JSONWriter);
-        DBMS.SetDocumentReader(JSONReader);
+        RF_Mem::AutoPointer<RadiumDB::DCL::DocumentLocator> locator(new RadiumDB::DCL::DocumentLocator);
+        locator->SetRootLocation(RF_Type::String("file://"));
+        db.SetDocumentLocator(locator);
 
-        RF_Util::UUID generatedAsset = DBMS.CreateDocument();
+        RF_Util::UUID generatedAsset = db.CreateDocument();
         RadiumDB::DCL::Document requestedAsset;
-        if(DBMS.Get(generatedAsset, requestedAsset))
+        if(db.Get(generatedAsset, requestedAsset))
         {
-            if(DBMS.Update(requestedAsset))
+            requestedAsset.SetType("Asset"_rfs);
+            requestedAsset.SetStr("tags"_rfs)
+            if(db.Update(requestedAsset))
             {
-                DBMS.Delete(generatedAsset);
+                db.Delete(generatedAsset);
             }
         }
         return true;

@@ -59,4 +59,9 @@ void DataControlLanguage::SetDocumentReader(RF_Mem::AutoPointer<DocumentReader>&
     m_Reader = NewDocumentReader;
 }
 
+void DataControlLanguage::SetDocumentLocator(RF_Mem::AutoPointer<DocumentLocator>& NewDocumentLocator)
+{
+    m_Locator = NewDocumentLocator;
+}
+
 } }

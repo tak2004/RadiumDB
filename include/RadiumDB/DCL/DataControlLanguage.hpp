@@ -24,6 +24,7 @@ public:
 
     void SetDocumentWriter(RF_Mem::AutoPointer<DocumentWriter>& NewDocumentWriter);
     void SetDocumentReader(RF_Mem::AutoPointer<DocumentReader>& NewDocumentReader);
+    void SetDocumentLocator(RF_Mem::AutoPointer<DocumentLocator>& NewDocumentLocator);
 protected:
     RF_Mem::AutoPointer<DocumentLocator> m_Locator;
     RF_Mem::AutoPointer<DocumentWriter> m_Writer;
